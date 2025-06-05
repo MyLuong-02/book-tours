@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('_header') %>
+  <link rel="stylesheet" href="css/forums.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+  <%- include('_navbar') %>
+  <form class="searchs">
+    <h4 class="card__sub-heading  margin-0">Sort by:</h4>
+    <button type="button" class="filter-btn float-right" data-sort="title" aria-label="Sort alphabetical">
+      <i class="arrow fas fa-arrow-down"></i>
+      <i class="fas fa-sort-alpha-down crop"></i> Title
+    </button>
+    <button type="button" class="filter-btn float-right" data-sort="createdAt" aria-label="Sort date">
+      <i class="arrow fas fa-arrow-down"></i>
+      <i class="far fa-calendar"></i> Date
+    </button>
+    <input type="text" placeholder="Search posts" class="searchs-input float-right" name="title" />
+    <button class="searchs-btn float-right" aria-label="Search">
+      <svg>
+        <use xlink:href="img/icons.svg#icon-search"></use>
+      </svg>
+    </button>
+
+  </form>
+  <main class="forum-overview-container">
+
+    <div class="forum-header">
+      <h1 class="forum-heading">Forums Overview</h1>
+      <p>Join the conversation and share your experiences. Explore various travel discussions and connect with fellow travelers.</p>
+    </div>
+
+    <div class="forum-posts-grid">
+      <!-- Forum Posts -->
+      <% posts.forEach(post => { %>
+      <div class="forum-post-box">
+        <img src="img/users/<%= post.user.photo %>" alt="<%= post.user.name %>" class="forum-post-avatar" />
+        <div class="forum-post-content">
+          <h2 class="forum-post-title"><%= post.title %></h2>
+          <div class="forum-post-meta">
+            <span class="forum-post-username"><%= post.user.name %></span>
+            <span class="forum-post-time"><%= post.createdAt %></span>
+          </div>
+          <div class="forum-post-info">
+            <p class="post-content"><%= post.content %></p>
+          </div>
+          <div class="forum-post-actions">
+          </div>
+        </div>
+        <a href="/forum/<%= post.id %>"><button class=" forum-post-reply">Reply</button></a>
+      </div>
+      <% }) %>
+    </div>
+
+    <!-- Create Post Button -->
+    <button class="create-post-btn" id="open-modal-btn"><i class="fas fa-pencil-alt"></i> Create Post</button>
+  </main>
+
+  <!-- The Modal -->
+  <div id="create-post-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="close-modal-btn">&times;</span>
+      <form id="create-post-form">
+        <div class="form-group">
+          <label for="post-title">Post Title</label>
+          <input type="text" id="post-title" name="post-title" required>
+        </div>
+
+        <div class="form-group">
+          <label for="post-content">Post Content</label>
+          <textarea id="post-content" name="post-content" rows="4" required></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit">Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="pagination">
+    <% if (currentPage > 1) { %>
+    <a href="?page=<%= currentPage - 1 %>&limit=<%= limit %>&title=<%= queryParams.title %>&sort=<%= queryParams.sort %>" class="pagination__link">« Previous</a>
+    <% } %>
+
+    <% for (let i = 1; i <= totalPages; i++) { %>
+    <% if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) { %>
+    <a href="?page=<%= i %>&limit=<%= limit %>&title=<%= queryParams.title %>&sort=<%= queryParams.sort %>" class="pagination__link <%= currentPage === i ? 'pagination__link--active' : '' %>"><%= i %></a>
+    <% } else if (i === currentPage - 2 || i === currentPage + 2) { %>
+    <span class="pagination__ellipsis">...</span>
+    <% } %>
+    <% } %>
+
+    <% if (currentPage < totalPages) { %>
+    <a href="?page=<%= currentPage + 1 %>&limit=<%= limit %>&title=<%= queryParams.title %>&sort=<%= queryParams.sort %>" class="pagination__link">Next »</a>
+    <% } %>
+  </div>
+
+  <%- include('_footer') %>
+  <script type="module" src="js/forums.js"></script>
+</body>
+
+</html>

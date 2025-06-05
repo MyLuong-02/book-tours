@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('_header') %>
+  <title><%= title %></title>
+
+</head>
+<body class="<%= (typeof theme !== 'undefined' && theme === 'dark') ? 'dark-theme' : 'light-theme' %>">
+  <%- include('_navbar') %>
+  <main class="main">
+    <div class="user-view">
+      <nav class="user-view__menu">
+        <ul class="side-nav" aria-label="User navigation">
+          <li><a href="/me"><svg>
+              <use xlink:href="img/icons.svg#icon-settings"></use>
+            </svg>Settings</a></li>
+          <li><a href="/my-tours"><svg>
+              <use xlink:href="img/icons.svg#icon-briefcase"></use>
+            </svg>My bookings</a></li>
+          <li class="side-nav--active"><a href="/my-reviews" aria-current="page"><svg>
+              <use xlink:href="img/icons.svg#icon-star"></use>
+            </svg>My reviews</a></li>
+          <li><a href="/billing"><svg>
+              <use xlink:href="img/icons.svg#icon-credit-card"></use>
+            </svg>Billing</a></li>
+        </ul>
+        <% if (user.role == "admin") { %>
+        <div class="admin-nav">
+          <h1 class="admin-nav__heading">Admin</h1>
+          <ul class="side-nav" aria-label="Admin navigation">
+            <li><a href="/manage-tours"><svg>
+                <use xlink:href="img/icons.svg#icon-map"></use>
+              </svg>Manage tours</a></li>
+            <li><a href="/manage-users"><svg>
+                <use xlink:href="img/icons.svg#icon-users"></use>
+              </svg>Manage users</a></li>
+            <li><a href="/manage-bookings"><svg>
+                <use xlink:href="img/icons.svg#icon-briefcase"></use>
+              </svg>Manage bookings</a></li>
+            <li><a href="/manage-reviews"><svg>
+                <use xlink:href="img/icons.svg#icon-star"></use>
+              </svg>Manage reviews</a></li>
+          </ul>
+        </div>
+        <% } %>
+      </nav>
+
+      <div class="user-view__content">
+        <div class="user-view__form-container">
+          <h1 class="heading-secondary ma-bt-md">My Reviews</h1>
+          <div class="user-reviews">
+            <div class="review">
+              <h2 class="card__heading">The Park Camper Tour</h2>
+              <div class=" reviews__avatar"><img class="reviews__avatar-img" src="/img/users/user-17.jpg" alt="Alexander Jones" />
+                <h3 class="reviews__user">Alexander Jones</h3>
+              </div>
+              <h4 class="card__sub-heading">January 14, 2024</h4>
+              <div class="reviews__rating"><svg class="reviews__star reviews__star--active" aria-label="1 star">
+                  <use xlink:href="/img/icons.svg#icon-star"></use>
+                </svg><svg class="reviews__star reviews__star--active" aria-label="2 stars">
+                  <use xlink:href="/img/icons.svg#icon-star"></use>
+                </svg><svg class="reviews__star reviews__star--active" aria-label="3 stars">
+                  <use xlink:href="/img/icons.svg#icon-star"></use>
+                </svg><svg class="reviews__star reviews__star--active" aria-label="4 stars">
+                  <use xlink:href="/img/icons.svg#icon-star"></use>
+                </svg><svg class="reviews__star reviews__star--active" aria-label="5 star">
+                  <use xlink:href="/img/icons.svg#icon-star"></use>
+                </svg>
+              </div>
+            </div>
+            <p class="card__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
+            <button class="btn btn--small btn--green">Edit review</button>
+
+            <div class="review">
+              <h2 class="card__heading">The Park Camper Tour</h2>
+              <div class=" reviews__avatar"><img class="reviews__avatar-img" src="/img/users/user-17.jpg" alt="Alexander Jones" />
+                <h3 class="reviews__user">Alexander Jones</h3>
+              </div>
+              <h4 class="card__sub-heading">January 14, 2024</h4>
+              <div class="reviews__rating"><svg class="reviews__star reviews__star--active" aria-label"1 star">
+                  <use xlink:href="/img/icons.svg#icon-star"></use>
+                </svg><svg class="reviews__star reviews__star--active" aria-label="2 stars">
+                  <use xlink:href="/img/icons.svg#icon-star"></use>
+                </svg><svg class="reviews__star reviews__star--active" aria-label="3 stars">
+                  <use xlink:href="/img/icons.svg#icon-star"></use>
+                </svg><svg class="reviews__star reviews__star--active" aria-label="4 stars">
+                  <use xlink:href="/img/icons.svg#icon-star"></use>
+                </svg><svg class="reviews__star reviews__star--active" aria-label="5 stars">
+                  <use xlink:href="/img/icons.svg#icon-star"></use>
+                </svg>
+              </div>
+            </div>
+            <p class="card__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
+            <button class="btn btn--small btn--green">Edit review</button>
+
+            <div class="review">
+              <h2 class="card__heading">The Park Camper Tour</h2>
+              <div class=" reviews__avatar"><img class="reviews__avatar-img" src="/img/users/user-17.jpg" alt="Alexander Jones" />
+                <h3 class="reviews__user">Alexander Jones</h3>
+              </div>
+              <h4 class="card__sub-heading">January 14, 2024</h4>
+              <div class="reviews__rating"><svg class="reviews__star reviews__star--active" aria-label="1 star">
+                  <use xlink:href="/img/icons.svg#icon-star"></use>
+                </svg><svg class="reviews__star reviews__star--active" aria-label="2 stars">
+                  <use xlink:href="/img/icons.svg#icon-star"></use>
+                </svg><svg class="reviews__star reviews__star--active" aria-label="3 stars">
+                  <use xlink:href="/img/icons.svg#icon-star"></use>
+                </svg><svg class="reviews__star reviews__star--active" aria-label="4 stars">
+                  <use xlink:href="/img/icons.svg#icon-star"></use>
+                </svg><svg class="reviews__star reviews__star--active" aria-label="5 stars">
+                  <use xlink:href="/img/icons.svg#icon-star"></use>
+                </svg>
+              </div>
+            </div>
+            <p class="card__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
+            <button class="btn btn--small btn--green">Edit review</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <nav class="mobile-nav-wrapper">
+    <div class="mobile-nav">
+      <% if (user.role == "admin") { %>
+      <a href="/me"><svg>
+          <use xlink:href="img/icons.svg#icon-settings"></use>
+        </svg>Settings</a>
+      <a href="/manage-tours"><svg>
+          <use xlink:href="img/icons.svg#icon-map"></use>
+        </svg>Tours</a>
+      <a href="/manage-users"><svg>
+          <use xlink:href="img/icons.svg#icon-users"></use>
+        </svg>Users</a>
+      <a href="/manage-bookings"><svg>
+          <use xlink:href="img/icons.svg#icon-briefcase"></use>
+        </svg>Bookings</a>
+      <a href="/manage-reviews"><svg>
+          <use xlink:href="img/icons.svg#icon-star"></use>
+        </svg>Reviews</a>
+      <% } else { %>
+      <a href="/me"><svg>
+          <use xlink:href="img/icons.svg#icon-settings"></use>
+        </svg>Settings</a>
+      <a href="/my-tours"><svg>
+          <use xlink:href="img/icons.svg#icon-briefcase"></use>
+        </svg>Bookings</a>
+      <a href="/my-reviews" aria-current="page"><svg>
+          <use xlink:href="img/icons.svg#icon-star"></use>
+        </svg>Reviews</a>
+      <a href="/billing"><svg>
+          <use xlink:href="img/icons.svg#icon-credit-card"></use>
+        </svg>Billing</a>
+      <% } %>
+    </div>
+  </nav>
+  <script type="module" src="js/bundle.js"></script>
+
+  

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('_header') %>
+  <title><%= title %></title>
+</head>
+
+<body>
+  <%- include('_navbar') %>
+  <main class="main">
+    <div class="user-view">
+      <nav class="user-view__menu">
+        <ul class="side-nav" aria-label="User navigation">
+          <li><a href="/me"><svg>
+                <use xlink:href="img/icons.svg#icon-settings"></use>
+              </svg>Settings</a></li>
+          <li><a href="/my-tours"><svg>
+                <use xlink:href="img/icons.svg#icon-briefcase"></use>
+              </svg>My bookings</a></li>
+          <li><a href="/my-reviews"><svg>
+                <use xlink:href="img/icons.svg#icon-star"></use>
+              </svg>My reviews</a></li>
+          <li><a href="/billing"><svg>
+                <use xlink:href="img/icons.svg#icon-credit-card"></use>
+              </svg>Billing</a></li>
+        </ul>
+        <% if (user.role == "admin") { %>
+        <div class="admin-nav">
+          <h1 class="admin-nav__heading">Admin</h1>
+          <ul class="side-nav" aria-label="Admin navigation">
+            <li><a href="/manage-tours"><svg>
+                  <use xlink:href="img/icons.svg#icon-map"></use>
+                </svg>Manage tours</a></li>
+            <li><a href="/manage-users"><svg>
+                  <use xlink:href="img/icons.svg#icon-users"></use>
+                </svg>Manage users</a></li>
+            <li class="side-nav--active"><a href="/manage-bookings" aria-current="page"><svg>
+                  <use xlink:href="img/icons.svg#icon-briefcase"></use>
+                </svg>Manage bookings</a></li>
+            <li><a href="/manage-reviews"><svg>
+                  <use xlink:href="img/icons.svg#icon-star"></use>
+                </svg>Manage reviews</a></li>
+          </ul>
+        </div>
+        <% } %>
+      </nav>
+
+      <div class="manage-bookings-content">
+        <div class="manage-bookings-header">
+          <h2 class="heading-secondary">Manage Bookings</h2>
+        </div>
+        <div class="btn-container">
+          <button id="copyBtn">Copy</button>
+          <button id="excelBtn">Excel</button>
+          <button id="pdfBtn">PDF</button>
+          <div class="dropdown">
+            <button id="columnVisibilityBtn">Column visibility</button>
+            <div id="columnVisibilityDropdown" class="dropdown-content">
+              <a href="#" data-column="User Name">User Name</a>
+              <a href="#" data-column="Email">Email</a>
+              <a href="#" data-column="Tour Name">Tour Name</a>
+              <a href="#" data-column="Start Date">Start Date</a>
+              <a href="#" data-column="Action">Action</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="manage-bookings">
+          <table id="bookingTable" class="manage-bookings-table">
+            <thead>
+              <tr>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Tour Name</th>
+                <th>Price</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% bookings.forEach(booking => { %>
+              <% if (booking.active !== false) { %>
+              <tr>
+                <td><%= booking.user.name %></td>
+                <td><%= booking.user.email %></td>
+                <td><%= booking.tour.name %></td>
+                <td><%= booking.price %>$/person</td>
+                <td>
+                  <button class="btn btn-delete" data-booking-id="<%= booking._id %>">Delete</button>
+                </td>
+              </tr>
+              <% } %>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal for deletion confirmation -->
+  <div id="deleteBookingModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModalBtn">&times;</span>
+      <p id="modalText">Do you want to cancel this booking?</p>
+      <div class="modal-buttons">
+        <button id="confirmBtn" class="confirmBtn">Confirm</button>
+        <button id="cancelBtn" class="cancelBtn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <nav class="mobile-nav-wrapper">
+    <div class="mobile-nav">
+      <% if (user.role == "admin") { %>
+      <a href="/me"><svg>
+          <use xlink:href="img/icons.svg#icon-settings"></use>
+        </svg>Settings</a>
+      <a href="/manage-bookings" aria-current="page"><svg>
+          <use xlink:href="img/icons.svg#icon-map"></use>
+        </svg>Tours</a>
+      <a href="/manage-users"><svg>
+          <use xlink:href="img/icons.svg#icon-users"></use>
+        </svg>Users</a>
+      <a href="/manage-bookings"><svg>
+          <use xlink:href="img/icons.svg#icon-briefcase"></use>
+        </svg>Bookings</a>
+      <a href="/manage-reviews"><svg>
+          <use xlink:href="img/icons.svg#icon-star"></use>
+        </svg>Reviews</a>
+      <% } else { %>
+      <a href="/me"><svg>
+          <use xlink:href="img/icons.svg#icon-settings"></use>
+        </svg>Settings</a>
+      <a href="/my-tours"><svg>
+          <use xlink:href="img/icons.svg#icon-briefcase"></use>
+        </svg>Bookings</a>
+      <a href="/my-reviews"><svg>
+          <use xlink:href="img/icons.svg#icon-star"></use>
+        </svg>Reviews</a>
+      <a href="/billing"><svg>
+          <use xlink:href="img.icons.svg#icon-credit-card"></use>
+        </svg>Billing</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+  <script type="module" src="js/manageBookings.js"></script>
+  <script type="module" src="js/bundle.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('_header') %>
+
+    <title><%= title %></title>
+  
+</head>
+<body>
+  <%- include('_navbar') %>
+  <main class="main">
+      <div class="error">
+        <div class="error__title">
+          <h2 class="heading-secondary heading-secondary--error">Uh oh! Something went wrong! </h2>
+          <h2 class="error__emoji">😢 🤯</h2>
+        </div>
+        <div class="error__msg"><%= msg %></div>
+      </div>
+    </main>
+    <%- include('_footer') %>
+    <script type="module" src="js/bundle.js"></script>
+    <script src="/js/themetoggle.js"></script>
+</body>
+</html>

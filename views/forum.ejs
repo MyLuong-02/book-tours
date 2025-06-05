@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('_header') %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="css/forum.css" />
+</head>
+
+<body>
+  <%- include('_navbar') %>
+  <main class="forum-container">
+    <!-- Forum Post Section -->
+    <section class="forum-post">
+      <h2 class="forum-post-title"><%= post.title %></h2>
+      <div class="forum-post-meta">
+        <img src="img/users/<%= post.user.photo %>" alt="<%= post.user.name %>" class="forum-post-avatar" />
+        <div class="forum-post-user-info">
+          <p class="forum-post-username"><%= post.user.name %></p>
+          <p class="forum-post-time"><%= post.createdAt %></p>
+        </div>
+      </div>
+      <div class="forum-post-content">
+        <p><%= post.content %></p>
+        <% if (currentUser) { %>
+        <% if (post.user._id === currentUser.id || currentUser.role === "admin") { %>
+        <div class="forum-post-options">
+          <i class="fas fa-ellipsis-h"></i>
+          <div class="post-options-menu">
+            <a href="#" class="post-option">Edit</a>
+            <a href="#" class="post-option">Delete</a>
+          </div>
+        </div>
+        <% } %>
+        <% } %>
+      </div>
+      <div class="forum-post-comment-box">
+        <label for="comment">Write a comment...</label>
+        <textarea id="comment" name="comment" class="forum-post-comment-input" placeholder="Write a comment..."></textarea>
+        <input type="hidden" id="postId" name="postId" value="<%= post.id %>">
+        <button class="forum-post-comment-submit">Post Comment</button>
+      </div>
+    </section>
+
+      <h4 class="card__sub-heading margin-0">Sort by:</h4>
+      <button type="button" class="filter-btn float-right" data-sort="createdAt" data-sort-order="desc" aria-label="Sort date">
+        <i class="arrow fas fa-arrow-down"></i>
+        <i class="far fa-calendar"></i> Date
+      </button>
+
+    <!-- Comment Section -->
+    <section class="comment-section">
+      <% post.replies.forEach(reply => { %>
+      <div class="comment" data-comment-id="<%= reply._id %>">
+        <img src="img/users/<%= reply.user.photo %>" alt="<%= reply.user.name %>" class="comment-avatar">
+        <div class="comment-content">
+          <p class="float-right comment-text"><%= reply.createdAt %></p>
+          <p class="comment-username"><%= reply.user.name %></p>
+          
+          <p class="comment-text"><%= reply.reply %></p>
+          
+        </div>
+        <% if (currentUser) { %>
+        <% if (reply.user._id == currentUser._id || currentUser.role === "admin") { %>
+        <div class="comment-options">
+          <i class="fas fa-ellipsis-h"></i>
+          <div class="comment-options-menu">
+            <a href="#" class="comment-option">Edit</a>
+            <a href="#" class="comment-option">Delete</a>
+          </div>
+        </div>
+        <% } %>
+        <% } %>
+      </div>
+      <% }) %>
+    </section>
+  </main>
+
+  <!-- Modal for delete confirmation -->
+  <div id="deleteModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeDeleteModalBtn">&times;</span>
+      <p id="deleteModalText"></p>
+      <div class="modal-buttons">
+        <button id="confirmDeleteBtn" class="confirmBtn">Yes</button>
+        <button id="cancelDeleteBtn" class="cancelBtn">No</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for edit form -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeEditModalBtn">&times;</span>
+      <h2 id="editModalTitle"></h2>
+      <label id="editModalLabelTitle" for="editModalTitleInput">Post Title</label>
+      <input type="text" id="editModalTitleInput" class="forum-post-comment-input" placeholder="Title">
+      <label for="editModalTextarea">Content</label>
+      <textarea id="editModalTextarea" class="forum-post-comment-input" placeholder="Content"></textarea>
+      <div class="modal-buttons">
+        <button id="saveEditBtn" class="confirmBtn">Save</button>
+        <button id="cancelEditBtn" class="cancelBtn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <%- include('_footer') %>
+  <script type="module" src="js/forum.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const postOptionsIcons = document.querySelectorAll('.forum-post-options .fa-ellipsis-h');
+      const commentOptionsIcons = document.querySelectorAll('.comment-options .fa-ellipsis-h');
+
+      postOptionsIcons.forEach(icon => {
+        icon.addEventListener('click', function() {
+          const menu = this.nextElementSibling;
+          menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        });
+      });
+
+      commentOptionsIcons.forEach(icon => {
+        icon.addEventListener('click', function() {
+          const menu = this.nextElementSibling;
+          menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        });
+      });
+
+      // Close menus if clicking outside
+      document.addEventListener('click', function(e) {
+        if (!e.target.matches('.fa-ellipsis-h')) {
+          const postMenus = document.querySelectorAll('.post-options-menu');
+          const commentMenus = document.querySelectorAll('.comment-options-menu');
+
+          postMenus.forEach(menu => {
+            menu.style.display = 'none';
+          });
+
+          commentMenus.forEach(menu => {
+            menu.style.display = 'none';
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+
+</html>

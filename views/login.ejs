@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%- include('_header') %>
+
+  <title><%= title %></title>
+</head>
+
+<body>
+  <%- include('_navbar') %>
+  <main class="main">
+    <div class="login-form">
+      <h2 class="heading-secondary ma-bt-lg">Log into your account</h2>
+      <form class="form form--login">
+        <div class="form__group">
+          <label class="form__label" for="email">Email address</label>
+          <input id="email" class="form__input" type="email" placeholder="you@example.com" name="email" required>
+        </div>
+        <div class="form__group ma-bt-md">
+          <label class="form__label" for="password">Password</label>
+          <input id="password" class="form__input" type="password" placeholder="••••••••" name="password" required minlength="8">
+        </div>
+        <div class="form__label"> Don't have an account?<a href="/signup"> Sign up now!</a></div>
+        <a href="/forgot-password" class="form__label">Forgot your password?</a>
+        <div class="captcha-container">
+          <div class="g-recaptcha" data-sitekey="6Ld4UO0pAAAAAHXmMsgYAhqRfQIV7o6PZ0tKRwNL"></div>
+        </div>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <br />
+        <div class="form__group">
+          <button class="btn btn--green" type="submit">Login</button>
+        </div>
+      </form>
+    </div>
+  </main>
+  <%- include('_footer') %>
+  <script type="module" src="js/bundle.js"></script>
+
+</body>
+
+</html>

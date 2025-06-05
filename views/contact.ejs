@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('_header') %>
+    <title><%= title %></title>
+    <style>
+        .heading-secondary {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('_navbar') %>
+    <main class="contact-container">
+        <section class="contact-form-section">
+            <h2 class="heading-secondary">Contact Us</h2>
+            <form class="contact-form">
+                <div class="form__group">
+                    <label class="form__label" for="name">Name</label>
+                    <input type="text" class="form__input" id="name" placeholder="Your Name">
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="email">Email</label>
+                    <input type="email" class="form__input" id="email" placeholder="Your Email">
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="message">Message</label>
+                    <textarea class="form__textarea" id="message" rows="5" placeholder="Your Message"></textarea>
+                </div>
+                <div class="form__group">
+                    <button type="submit" class="btn btn--green">Send Message</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <%- include('_footer') %>
+    <script type="module" src="js/bundle.js"></script>
+</body>
+</html>

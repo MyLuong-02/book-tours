@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%- include('_header') %>
+  <title>Tour Maker</title>
+</head>
+
+<body>
+  <%- include('_navbar') %>
+  <div class="admin__form">
+    <h2 class="heading-secondary ma-bt-md">Create Tour</h2>
+    <form class="form form-user-data">
+      <div class=" admin-view__form-container">
+        <div class="form__group grid_name">
+          <label class="form__label" for="name">Name of Tour</label>
+          <input class="form__input" id="name" type="text" placeholder="The Peaky Peaks" required>
+        </div>
+        <div class="form__group grid_maxPpl ">
+          <label class="form__label" for="maxPpl">Max Group Size</label>
+          <input class="form__input" id="maxPpl" type="number" placeholder="10" required>
+        </div>
+        <div class="form__group grid_maxPpl ">
+          <label class="form__label" for="price">Price</label>
+          <input class="form__input" id="price" type="number" placeholder="300" required>
+        </div>
+        <div class="form__group grid_duration ">
+          <label class="form__label" for="duration">Duration</label>
+          <input class="form__input" id="duration" type="number" placeholder="10" required>
+        </div>
+        <div class="form__group grid_location">
+          <label class="form__label" for="location">Location</label>
+          <input class="form__input" id="location" type="text" placeholder="London, Mars">
+        </div>
+        <div class="form__group grid_start">
+          <label class="form__label" for="start">Start Date</label>
+          <input class="form__input" id="start" type="date" required>
+        </div>
+        <div class="form__group grid_difficulty">
+          <label class="form__label" for="difficulty">Difficulty</label>
+          <select class="form__input" name="difficulty" id="Difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+      </div>
+      <div class="admin-view__form-container2">
+        <div class="form__group grid_desc">
+          <label class="form__label" for="summary">Summary</label>
+          <input class="form__textarea" id="summary" type="text" style="height: 12rem;" placeholder="Lorem ipsum dolor..." required>
+        </div>
+        <div class="form__group grid_desc">
+          <label class="form__label" for="desc">Description</label>
+          <input class="form__textarea" id="desc" type="text" style="height: 12rem;" placeholder="Lorem ipsum dolor..." required>
+        </div>
+      </div>
+      <div class="photo_grid">
+        <div class="grid_photo--main">
+          <label class="form__label" for="tourCover">Cover photo</label>
+          <img class="form__cover-photo" src="/img/tours/tour-5-3.jpg" alt="Cover photo"><br>
+          <label for="tourCover">Choose new cover photo</label>
+          <input class="form__upload2" type="file" accept="image/*" id="tourCover" name="tourCover">
+        </div>
+        <div class="grid_photo">
+          <label class="form__label" for="tourPhoto">Tour photo</label>
+          <img class="form__tour-photo" src="/img/users/<%= user.photo %>" alt="Tour photo"><br>
+          <label for="tourPhoto">Choose new tour photo </label>
+          <input class="form__upload2" type="file" accept="image/*" id="tourPhoto1" name="tourPhoto">
+        </div>
+        <div class="grid_photo">
+          <label class="form__label" for="tourPhoto">Tour photo</label>
+          <img class="form__tour-photo" src="/img/users/<%= user.photo %>" alt="Tour photo"><br>
+          <label for="tourPhoto">Choose new tour photo </label>
+          <input class="form__upload2" type="file" accept="image/*" id="tourPhoto2" name="tourPhoto">
+        </div>
+        <div class="grid_photo">
+          <label class="form__label" for="tourPhoto">Tour photo</label>
+          <img class="form__tour-photo" src="/img/users/<%= user.photo %>" alt="Tour photo3"><br>
+          <label for="tourPhoto">Choose new tour photo </label>
+          <input class="form__upload2" type="file" accept="image/*" id="tourPhoto" name="tourPhoto">
+        </div>
+      </div>
+      <div class="form__group center">
+        <button class="btn btn--green grid_save" type="submit">Save Changes</button>
+      </div>
+    </form>
+  </div>
+
+
+  <%- include('_footer') %>
+  <script type="module" src="js/bundle.js"></script>
+
+</body>
+
+</html>

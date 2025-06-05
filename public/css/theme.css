@@ -1,0 +1,120 @@
+:root {
+  --background-color: #ffffff;
+  --text-color: #777;
+  --card-background-color: #f9f9f9;
+  --card-text-color: #333333;
+  --button-background-color: #4caf50;
+  --button-text-color: #ffffff;
+  --card-footer: #f7f7f7;
+  --nav-search: #f7f7f7;
+  --logsign-form: #ffffff;
+  --forum-heading: #000000;
+  --forum-post-meta: #00796b;
+}
+
+[data-theme="dark"] {
+  --background-color: #121212;
+  --text-color: #ffffff;
+  --card-background-color: #1e1e1e;
+  --card-text-color: #cecdcd;
+  --button-background-color: #4caf50;
+  --button-text-color: #ffffff;
+  --card-footer: #2c2c2c;
+  --nav-search: #000000;
+  --logsign-form: #1e1e1e;
+  --forum-heading: #ffffff;
+  --forum-post-meta: #3be649;
+}
+
+body,
+.main,
+.card-container,
+.section-about,
+.section-tours,
+.h1,
+.description-box,
+.section-cta,
+.policy-container,
+.policy-header,
+.policy-section,
+.forum-container
+ {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+.nav__searchs {
+  background-color: var(--nav-search);
+}
+
+.card,
+.card__header,
+.card__details, 
+.modal-content{
+  background-color: var(--card-background-color);
+  color: var(--card-text-color);
+}
+.login-form,
+.singup-form,
+.contact-form-section,
+.user-view__content,
+.manage-tours-content,
+.manage-users-content,
+.manage-bookings-content,
+.manage-reviews-content,
+.forum-post-box,
+.overview-box,
+.reviews__card,
+.cta,
+.contact-info,
+.searchs,
+.forum-post-box,
+.manage-review,
+.filter-btn,
+.forgot-password-form {
+  background-color: var(--logsign-form);
+  color: var(--card-text-color);
+}
+.card__footer,
+.story,
+.feature-box,
+.forum-post,
+.comment-content {
+  background-color: var(--card-footer);
+  border-top: 1px solid var(--button-background-color);
+}
+
+.btn--green {
+  background-color: var(--button-background-color);
+  color: var(--button-text-color);
+}
+.btn-container {
+  color: var(--button-text-color);
+}
+.heading-primary {
+  color: #ffffff;
+}
+.policy-section p,
+.policy-section li {
+  color: var(--card-text-color);
+}
+.forum-post-title,
+.comment-text,
+.forum-post-content {
+  color: var(--forum-heading);
+}
+
+.forum-post-title,
+.forum-post-username,
+.comment-username,
+.forum-heading {
+  background-image: linear-gradient(to right, #7dd56f, #28b487);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.filter-btn {
+  border: 1px solid var(--forum-heading);
+}
+.btn-active{
+  background-color: #55c57a;
+    color: #fff;
+}

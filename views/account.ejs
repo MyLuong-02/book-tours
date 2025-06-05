@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('_header') %>
+  <title><%= title %></title>
+</head>
+
+<body>
+  <%- include('_navbar') %>
+  <main class="main">
+    <div class="user-view">
+      <nav class="user-view__menu">
+        <ul class="side-nav" aria-label="User navigation">
+          <li class="side-nav--active"><a href="/me" aria-current="page"><svg>
+                <use xlink:href="img/icons.svg#icon-settings"></use>
+              </svg>Settings</a></li>
+          <li><a href="/my-tours"><svg>
+                <use xlink:href="img/icons.svg#icon-briefcase"></use>
+              </svg>My bookings</a></li>
+          <li><a href="/my-reviews"><svg>
+                <use xlink:href="img/icons.svg#icon-star"></use>
+              </svg>My reviews</a></li>
+          <li><a href="/billing"><svg>
+                <use xlink:href="img/icons.svg#icon-credit-card"></use>
+              </svg>Billing</a></li>
+        </ul>
+        <% if (user.role == "admin") { %>
+        <div class="admin-nav">
+          <h1 class="admin-nav__heading">Admin</h1>
+          <ul class="side-nav" aria-label="Admin navigation">
+            <li><a href="/manage-tours"><svg>
+                  <use xlink:href="img/icons.svg#icon-map"></use>
+                </svg>Manage tours</a></li>
+            <li><a href="/manage-users"><svg>
+                  <use xlink:href="img/icons.svg#icon-users"></use>
+                </svg>Manage users</a></li>
+            <li><a href="/manage-bookings"><svg>
+                  <use xlink:href="img/icons.svg#icon-briefcase"></use>
+                </svg>Manage bookings</a></li>
+            <li><a href="/manage-reviews"><svg>
+                  <use xlink:href="img/icons.svg#icon-star"></use>
+                </svg>Manage reviews</a></li>
+          </ul>
+        </div>
+        <% } %>
+      </nav>
+
+      <div class="user-view__content">
+        <div class="user-view__form-container">
+          <h2 class="heading-secondary ma-bt-md">Your account settings</h2>
+          <form class="form form-user-data">
+            <div class="form__group">
+              <label class="form__label" for="name">Name</label>
+              <input class="form__input" id="name" type="text" value="<%= user.name %>" required name="name">
+            </div>
+            <div class="form__group ma-bt-md">
+              <label class="form__label" for="email">Email address</label>
+              <input class="form__input" id="email" type="email" value="<%= user.email %>" required name="email">
+            </div>
+            <div class="form__group form__photo-upload">
+              <img class="form__user-photo" src="/img/users/<%= user.photo %>" alt="User photo">
+              <label class="form-text" for="photo">Choose new photo</label>
+              <input class="form__upload" type="file" accept="image/*" id="photo" name="photo">
+            </div>
+            <div class="form__group right">
+              <button class="btn btn--small btn--green">Save settings</button>
+            </div>
+          </form>
+        </div>
+        <div class="line">&nbsp;</div>
+        <div class="user-view__form-container">
+          <h2 class="heading-secondary ma-bt-md">Password change</h2>
+          <form class="form form-user-password">
+            <div class="form__group">
+              <label class="form__label" for="password-current">Current password</label>
+              <input class="form__input" id="password-current" type="password" placeholder="••••••••" required minlength="8">
+            </div>
+            <div class="form__group">
+              <label class="form__label" for="password">New password</label>
+              <input class="form__input" id="password" type="password" placeholder="••••••••" required minlength="8">
+            </div>
+            <div class="form__group ma-bt-lg">
+              <label class="form__label" for="password-confirm">Confirm password</label>
+              <input class="form__input" id="password-confirm" type="password" placeholder="••••••••" required minlength="8">
+            </div>
+            <div class="form__group right">
+              <button class="btn btn--small btn--green btn--save-password">Save password</button>
+            </div>
+          </form>
+        </div>
+        <% if (user.role != "admin") { %>
+        <div class="line">&nbsp;</div>
+        <div class="account-options">
+          <div class="account-option">
+            <button class=" btn btn--red btn--delete-account">Delete Account</button>
+          </div>
+        </div>
+        <% } %>
+      </div>
+
+      <div class="modal" id="confirmationModal">
+        <div class="modal-content">
+          <h2 id="modalHeading"></h2>
+          <p id="modalText"></p>
+          <div class="modal-buttons">
+            <button class="btn btn--small btn--gray cancelBtn">Cancel</button>
+            <button class="btn btn--small btn--red confirmBtn">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <nav class="mobile-nav-wrapper">
+    <div class="mobile-nav">
+      <% if (user.role == "admin") { %>
+      <a href="/account" aria-current="page"><svg>
+          <use xlink:href="img/icons.svg#icon-settings"></use>
+        </svg>Settings</a>
+      <a href="/manage-tours"><svg>
+          <use xlink:href="img/icons.svg#icon-map"></use>
+        </svg>Tours</a>
+      <a href="/manage-users"><svg>
+          <use xlink:href="img/icons.svg#icon-users"></use>
+        </svg>Users</a>
+      <a href="/manage-bookings"><svg>
+          <use xlink:href="img/icons.svg#icon-briefcase"></use>
+        </svg>Bookings</a>
+      <a href="/manage-reviews"><svg>
+          <use xlink:href="img/icons.svg#icon-star"></use>
+        </svg>Reviews</a>
+      <% } else { %>
+      <a href="/account" aria-current="page"><svg>
+          <use xlink:href="img/icons.svg#icon-settings"></use>
+        </svg>Settings</a>
+      <a href="/my-tours"><svg>
+          <use xlink:href="img/icons.svg#icon-briefcase"></use>
+        </svg>Bookings</a>
+      <a href="/my-reviews"><svg>
+          <use xlink:href="img/icons.svg#icon-star"></use>
+        </svg>Reviews</a>
+      <a href="/billing"><svg>
+          <use xlink:href="img/icons.svg#icon-credit-card"></use>
+        </svg>Billing</a>
+      <% } %>
+    </div>
+  </nav>
+  <script type="module" src="js/bundle.js"></script>
+  <script type="module" src="js/account.js"></script>

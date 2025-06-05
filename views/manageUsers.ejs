@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('_header') %>
+  <title><%= title %></title>
+</head>
+
+<body>
+  <%- include('_navbar') %>
+  <main class="main">
+    <div class="user-view">
+      <nav class="user-view__menu">
+        <ul class="side-nav" aria-label="User navigation">
+          <li><a href="/me"><svg>
+                <use xlink:href="img/icons.svg#icon-settings"></use>
+              </svg>Settings</a></li>
+          <li><a href="/my-tours"><svg>
+                <use xlink:href="img/icons.svg#icon-briefcase"></use>
+              </svg>My bookings</a></li>
+          <li><a href="/my-reviews"><svg>
+                <use xlink:href="img/icons.svg#icon-star"></use>
+              </svg>My reviews</a></li>
+          <li><a href="/billing"><svg>
+                <use xlink:href="img/icons.svg#icon-credit-card"></use>
+              </svg>Billing</a></li>
+        </ul>
+        <% if (user.role == "admin") { %>
+        <div class="admin-nav">
+          <h1 class="admin-nav__heading">Admin</h1>
+          <ul class="side-nav" aria-label="Admin navigation">
+            <li><a href="/manage-tours"><svg>
+                  <use xlink:href="img/icons.svg#icon-map"></use>
+                </svg>Manage tours</a></li>
+            <li class="side-nav--active"><a href="/manage-users" aria-current="page"><svg>
+                  <use xlink:href="img/icons.svg#icon-users"></use>
+                </svg>Manage users</a></li>
+            <li><a href="/manage-bookings"><svg>
+                  <use xlink:href="img/icons.svg#icon-briefcase"></use>
+                </svg>Manage bookings</a></li>
+            <li><a href="/manage-reviews"><svg>
+                  <use xlink:href="img/icons.svg#icon-star"></use>
+                </svg>Manage reviews</a></li>
+          </ul>
+        </div>
+        <% } %>
+      </nav>
+
+      <div class="manage-users-content">
+        <div class="manage-users-header">
+          <h2 class="heading-secondary">Manage Users</h2>
+        </div>
+        <div class="btn-container">
+          <button id="copyBtn">Copy</button>
+          <button id="excelBtn">Excel</button>
+          <button id="pdfBtn">PDF</button>
+          <div class="dropdown">
+            <button id="columnVisibilityBtn">Column visibility</button>
+            <div id="columnVisibilityDropdown" class="dropdown-content">
+              <a href="#" data-column="User Name">User Name</a>
+              <a href="#" data-column="Email">Email</a>
+              <a href="#" data-column="Role">Role</a>
+              <a href="#" data-column="Status">Status</a>
+            </div>
+          </div>
+        </div>
+        <form class="searchs">
+          <div class="search-container">
+            <label for="search" class="nav__search-label">Search:</label>
+            <input type="text" id="search" class="searchs-input" placeholder="Search users" />
+            <button type="submit" class="searchs-btn float-right" aria-label="Search">
+              <svg>
+                <use xlink:href="img/icons.svg#icon-search"></use>
+              </svg>
+            </button>
+          </div>
+        </form>
+        <div class="manage-users">
+          <table id="userTable" class="manage-users-table">
+            <thead>
+              <tr>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% users.forEach(user => { %>
+              <tr>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td><%= user.role %></td>
+                <td>
+                  <% if (user.role !== "admin") { %>
+                  <% if (user.active) { %>
+                  <button class="btn status-btn status-active" data-user-id="<%= user._id %>">Active</button>
+                  <% } else { %>
+                  <button class="btn status-btn status-banned" data-user-id="<%= user._id %>">Banned</button>
+                  <% } %>
+                  <% } %>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <% if (currentPage > 1) { %>
+            <a href="?page=<%= currentPage - 1 %>&limit=<%= limit %>&name=<%= queryParams.name %>&sort=<%= queryParams.sort %>" class="pagination__link">« Previous</a>
+          <% } %>
+        
+          <% for (let i = 1; i <= totalPages; i++) { %>
+            <% if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) { %>
+              <a href="?page=<%= i %>&limit=<%= limit %>&name=<%= queryParams.name %>&sort=<%= queryParams.sort %>" class="pagination__link <%= currentPage === i ? 'pagination__link--active' : '' %>"><%= i %></a>
+            <% } else if (i === currentPage - 2 || i === currentPage + 2) { %>
+              <span class="pagination__ellipsis">...</span>
+            <% } %>
+          <% } %>
+        
+          <% if (currentPage < totalPages) { %>
+            <a href="?page=<%= currentPage + 1 %>&limit=<%= limit %>&name=<%= queryParams.name %>&sort=<%= queryParams.sort %>" class="pagination__link">Next »</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="statusModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModalBtn">&times;</span>
+      <p id="modalText"></p>
+      <div class="modal-buttons">
+        <button id="confirmBtn" class="confirmBtn">Yes</button>
+        <button id="cancelBtn" class="cancelBtn">No</button>
+      </div>
+    </div>
+  </div>
+
+  <nav class="mobile-nav-wrapper">
+    <div class="mobile-nav">
+      <% if (user.role == "admin") { %>
+      <a href="/me"><svg>
+          <use xlink:href="img/icons.svg#icon-settings"></use>
+        </svg>Settings</a>
+      <a href="/manage-tours"><svg>
+          <use xlink:href="img/icons.svg#icon-map"></use>
+        </svg>Tours</a>
+      <a href="/manage-users" aria-current="page"><svg>
+          <use xlink:href="img/icons.svg#icon-users"></use>
+        </svg>Users</a>
+      <a href="/manage-bookings"><svg>
+          <use xlink:href="img/icons.svg#icon-briefcase"></use>
+        </svg>Bookings</a>
+      <a href="/manage-reviews"><svg>
+          <use xlink:href="img/icons.svg#icon-star"></use>
+        </svg>Reviews</a>
+      <% } else { %>
+      <a href="/me"><svg>
+          <use xlink:href="img/icons.svg#icon-settings"></use>
+        </svg>Settings</a>
+      <a href="/my-tours"><svg>
+          <use xlink:href="img/icons.svg#icon-briefcase"></use>
+        </svg>Bookings</a>
+      <a href="/my-reviews"><svg>
+          <use xlink:href="img/icons.svg#icon-star"></use>
+        </svg>Reviews</a>
+      <a href="/billing"><svg>
+          <use xlink:href="img/icons.svg#icon-credit-card"></use>
+        </svg>Billing</a>
+      <% } %>
+    </div>
+  </nav>
+
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+  <script type="module" src="js/manageUsers.js"></script>
+  <script type="module" src="js/bundle.js"></script>
+
+</body>
+
+</html>
